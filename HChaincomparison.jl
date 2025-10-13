@@ -13,6 +13,7 @@ using LaTeXStrings
 include("Nonperturbative.jl")
 
 # Standard HChain
+Lmag = 9
 units = Units(:meV, :angstrom)
 a = 3.0
 b = 8.0
@@ -29,3 +30,6 @@ set_exchange!(sys, J, Bond(1, 1, [1, 0, 0]))
 min_sys(sys; dims=2, maxit=10000)
 swt, res, LSWT_plot = LSWT(sys, 1, 1, [[0,0,0], [1,0,0]], 400)
 display(LSWT_plot)
+
+npt = Sunny.NonPerturbativeTheory(swt, (Lmag, 1, 1))
+npt.clustersize
