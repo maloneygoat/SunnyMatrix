@@ -91,11 +91,11 @@ function χ_1(ωs, abssquaredf0x, E; ν=0.0005)
     return χ_vals
 end
 
-x_vals = χ_1(ωs, abssquaredf0x, E, ν=0.000005)
+x_vals = χ_1(ωs, abssquaredf0x, E, ν=0.5)
 
 
 # Plotting
-q_vals = [-0.001, 0.0, 0.001]  # a dummy q-range
+q_vals = [-0.000000001, 0.0, 0.000000001]  # a dummy q-range
 
 # Repeat the 1D χ₁(ω) vector into a 2D matrix for heatmap
 χ_matrix = zeros(length(ωs), length(q_vals))
@@ -106,10 +106,14 @@ tr_matrix = transpose(χ_matrix)
 lines(ωs, x_vals)
 
 χ_fig = Figure(resolution = (1200, 600))
-ax = Axis(χ_fig[1, 1])
+ax = Axis(χ_fig[1, 1]; xlabel="[q, 0, 0]", ylabel="Energy (meV)", yticks=collect(0:0.5:wmax) ,title =latexstring("χ_1 \\text{ for Heisenberg Chain}"))
 ylims!(ax, 0, wmax)
-xlims!(ax, -0.001, 0.001)
-xhm = heatmap!(ax, q_vals, ωs, tr_matrix ; interpolate = false, colormap = :heat)
+xlims!(ax, -0.000000001, 0.000000001)
+xhm = heatmap!(ax, q_vals, ωs, tr_matrix ; interpolate = true, colormap = :heat)
 #xhm = heatmap!(ax, q_vals, ωs, χ_matrix; colormap = :heat)
 colorbar = Colorbar(χ_fig[1, 2], xhm; label="Intensity", width=15)
+ax_r = plot_intensities!(χ_fig[1, 3], res; title = latexstring("\\text{LSWT}"))
+ax_r.ylabel = "Energy (meV)"
+ax_r.yticks = collect(0:0.5:wmax)
+ylims!(ax_r, 0, wmax)
 display(χ_fig)
