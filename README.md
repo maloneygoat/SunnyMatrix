@@ -8,11 +8,11 @@ $$\chi^{(1)}_{\alpha\beta}(t_1) = \frac{i}{2N} \left\langle \left[ M^\alpha(t_1)
 
 where $\alpha$, $\beta$ are the components of the magentisation. $M^\alpha = \sum_iS_i^\alpha(t)$, where $S_i^\alpha$ is spin operator component $\alpha$ on site
 $i$ at time $t$. $N$ is the number of sites for renormalisation. 
-In the special case for uniform fluctuations, the lattice wavevector $\vec{q} = 0$, and the above linear suceptibility is just the DSSF
+In the special case for uniform fluctuations, when the lattice wavevector $\vec{q} = 0$, the imaginary component of the above linear suceptibility is just the DSSF
 
 $$S^{\alpha\alpha}(\mathbf{q}, \omega) = \sum_n \left| \langle n | S^\alpha_{-\mathbf{q}} | 0 \rangle \right|^2 \delta\left(\omega - (E_n - E_0)\right)$$
 
-This can be calculated within `Su(n)ny` using the continued fraction method and we can then look at when $\vec{q}=0$. However this procedure fails when looking at higher order
+This can be calculated within `Su(n)ny` using the continued fraction method and we can then look at when $\vec{q}=0$, and it is what is plotted in the results. However this procedure fails when looking at higher order
 responses.
 
 For second order response we must perform an internal summation over all eigenstates to obtain the Non-linear response:
