@@ -1779,8 +1779,8 @@ uuid = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
 version = "7.7.0+0"
 
 [[deps.Sunny]]
-deps = ["Brillouin", "CrystalInfoFramework", "DynamicPolynomials", "ElasticArrays", "FFTW", "HCubature", "JLD2", "LinearAlgebra", "NLsolve", "OffsetArrays", "Optim", "PrecompileTools", "Printf", "Random", "RowEchelon", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TensorOperations"]
-path = "../Sunny.jl"
+deps = ["Brillouin", "CrystalInfoFramework", "DynamicPolynomials", "ElasticArrays", "FFTW", "HCubature", "JLD2", "LinearAlgebra", "NLsolve", "OffsetArrays", "Optim", "PrecompileTools", "Printf", "ProgressMeter", "Random", "RowEchelon", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TensorOperations"]
+path = "/Users/brianmaloney/Desktop/PhD/Sunny.jl/"
 uuid = "2b4a2ac8-8f8b-43e8-abf4-3cb0c45e8736"
 version = "0.7.5"
 

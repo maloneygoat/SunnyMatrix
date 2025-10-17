@@ -11,8 +11,6 @@ using Printf
 using LaTeXStrings
 CairoMakie.activate!()
 
-include("Nonperturbative.jl")
-
 # Standard HChain
 Lmag = 57
 δω = 0.5
@@ -35,16 +33,15 @@ positions = [[0, 0, 0]]
 cryst = Crystal(latvecs, positions)
 
 sys = System(cryst, [1 => Moment(s=1, g=2)], :dipole)
-
 J = -1
 set_exchange!(sys, J, Bond(1, 1, [1, 0, 0]))
 
-min_sys(sys; dims=2, maxit=10000)
-swt, res, LSWT_plot = LSWT(sys, 1, 1, [[0,0,0], [1,0,0]], 400)
+Sunny.min_sys(sys; dims=2, maxit=10000)
+swt, res, LSWT_plot = Sunny.LSWT(sys, cryst, 1, 1, [[0,0,0], [1,0,0]], 400)
 display(LSWT_plot)
 # NPT
 npt = Sunny.NonPerturbativeTheory(swt, (Lmag, 1, 1))
-Sxx_graph = cf_two_particle(npt, 1, η, ωs, qs, Lmag, 0, 10000)
+Sxx_graph = Sunny.cf_two_particle(npt, 1, η, ωs, qs; k = 0, n_iters = 10000)
 
 cf_fig = Figure(resolution = (1200, 600))
 Label(cf_fig[0, 1:3], latexstring("J = $J"), fontsize = 24, halign = :center, valign = :center)
@@ -57,7 +54,7 @@ ax_r = plot_intensities!(cf_fig[1, 3], res; title = latexstring("\\text{LSWT}"))
 ax_r.ylabel = "Energy (meV)"
 ax_r.yticks = collect(0:0.5:wmax)
 ylims!(ax_r, 0, wmax)
-#display(cf_fig)
+display(cf_fig)
 
 # q must be a vector. Result is a 15 x 3 matrix, x3 as x,y,z. 15 as all 0 to wps
 f0 = Sunny.continued_fraction_initial_states(npt, [0,0,0], CartesianIndex(Lmag, 1, 1))
@@ -93,7 +90,7 @@ function χ_1(ωs, abssquaredf0x, E; ν=0.0005)
 end
 
 x_vals = χ_1(ωs, abssquaredf0x, E, ν=0.05)
-ωs
+
 
 # Loops
 
@@ -104,7 +101,7 @@ qs_vals = [q[1] for q in qs]
 for (i,q) in enumerate(qs)
     f0 = 0
     f0 = Sunny.continued_fraction_initial_states(npt, q, CartesianIndex(Lmag, 1, 1))
-    E, V = Sunny.unordered_truncated_hilbert_space_eigen(npt, q)
+    E, V = Sunny.truncated_hilbert_space_eigen(npt, q)
     # Sort everything
     sorted_inds = sortperm(E)
     E_sorted = E[sorted_inds]
